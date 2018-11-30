@@ -1,0 +1,56 @@
+
+时间服务器
+time.nist.gov
+time.nuri.net
+0.asia.pool.ntp.org
+1.asia.pool.ntp.org
+2.asia.pool.ntp.org
+3.asia.pool.ntp.org
+
+hwclock -w
+
+# 绑定IP
+1.编辑ifcfg-eth0
+```
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+```
+```
+###################################
+DEVICE=eth0
+TYPE=Ethernet
+UUID=e8e5504f-6b1d-42b3-9b92-bd71a8b87517
+ONBOOT=yes
+NM_CONTROLLED=yes
+BOOTPROTO=none
+HWADDR=00:0C:29:EC:45:D4
+IPADDR=192.168.0.90
+PREFIX=24
+GATEWAY=192.168.0.1
+DNS1=114.114.114.114
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+NAME="System eth0"
+####################################
+tips :
+    UUID和HWADDR保留自己的其余的用这个替换,  注意修改之前先备份,  免得改错了
+```
+2. 编辑network
+```
+vi /etc/sysconfig/network
+```
+```
+####################################
+NETWORKING=yes
+HOSTNAME=localhost.localdomain
+GATEWAY=192.168.0.1
+####################################
+参照一下代码修改自己的配置, 也就改个网关地址
+
+
+```
+3.最后重启网关配置
+```
+service network restart
+```
+
